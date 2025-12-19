@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Машинка BMW с анимацией</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #87CEEB;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Дорога */
+        .road {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background-color: #333;
+        }
+
+        .road-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: repeating-linear-gradient(to right,
+                    #FFD700 0,
+                    #FFD700 20px,
+                    transparent 20px,
+                    transparent 40px);
+            transform: translateY(-50%);
+        }
+
+        .sun {
+            position: absolute;
+            top: 30px;
+            right: 820px;
+            width: 60px;
+            height: 60px;
+            background-color: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #FFA500;
+        }
+
+        .cloud {
+            position: absolute;
+            background-color: white;
+            border-radius: 50px;
+        }
+
+        .cloud-1 {
+            top: 60px;
+            left: 150px;
+            width: 120px;
+            height: 50px;
+        }
+
+        .cloud-2 {
+            top: 100px;
+            left: 300px;
+            width: 100px;
+            height: 40px;
+        }
+
+        .cloud:before,
+        .cloud:after {
+            content: '';
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .cloud:before {
+            width: 50px;
+            height: 50px;
+            top: -20px;
+            left: 20px;
+        }
+
+        .cloud:after {
+            width: 60px;
+            height: 60px;
+            top: -25px;
+            right: 20px;
+        }
+
+        .car-container {
+            position: absolute;
+            bottom: 120px;
+            left: 0;
+            width: 220px;
+            height: 100px;
+            animation: drive 6s ease-in-out forwards;
+        }
+
+        @keyframes drive {
+            0% {
+                transform: translateX(-220px);
+            }
+            100% {
+                transform: translateX(calc(100vw - 270px));
+            }
+        }
+
+        /*Анимация вращения*/
+        @keyframes spin-6s {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(2700deg); 
+            }
+        }
+
+        .car {
+            width: 220px;
+            height: 100px;
+            position: absolute;
+            bottom: -45px;
+        }
+
+        /* Кузов s */
+        .car-body {
+            position: absolute;
+            width: 200px;
+            height: 55px;
+            background-color: #000;
+            top: 30px;
+            left: 10px;
+            border-radius: 20px 20px 5px 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Крыша — серебристая */
+        .car-roof {
+            position: absolute;
+            width: 150px;
+            height: 35px;
+            background-color: #C0C0C0;
+            top: 15px;
+            left: 35px;
+            border-radius: 10px 10px 0 0;
+            box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Лобовое стекло */
+        .windshield {
+            position: absolute;
+            width: 130px;
+            height: 28px;
+            background: linear-gradient(to bottom, rgba(135, 206, 235, 0.6), rgba(100, 149, 237, 0.4));
+            top: 22px;
+            left: 45px;
+            border-radius: 5px;
+            border: 1px solid #888;
+        }
+
+        /* Окна боковые */
+        .side-window {
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            background: rgba(135, 206, 235, 0.5);
+            top: 25px;
+            border: 1px solid #888;
+            border-radius: 3px;
+        }
+
+        .side-window.left {
+            left: 38px;
+        }
+
+        .side-window.right {
+            right: 38px;
+        }
+
+        /* Решётка BMW */
+        .bmw-grille {
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            top: 48px;
+            left: 80px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .grille-part {
+            width: 28px;
+            height: 30px;
+            background: #222;
+            border: 2px solid #444;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grille-part::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            background: #333;
+            top: 0;
+            left: 0;
+        }
+
+        /* Передние фары */
+        .headlight {
+            position: absolute;
+            width: 25px;
+            height: 12px;
+            background: #FFD700;
+            top: 45px;
+            border-radius: 31px;
+            box-shadow: 0 0 8px #FFD700;
+        }
+
+        .headlight.left {
+            left: 10px;
+        }
+
+        .headlight.right {
+            right: 10px;
+        }
+
+        /* Колёса */
+        .wheel {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #111;
+            border-radius: 50%;
+            bottom: 0;
+            border: 2px solid #444;
+            animation: spin-6s 6s linear forwards;
+        }
+
+        .wheel::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #555;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .wheel.front {
+            right: 30px;
+        }
+
+        .wheel.rear {
+            left: 30px;
+        }
+
+        /* Спицы  */
+        .spoke {
+            position: absolute;
+            width: 4px;
+            height: 18px;
+            background-color: #ddd;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: translate(-50%, -100%);
+        }
+
+        .wheel .spoke:nth-child(1) { transform: translate(-50%, -100%) rotate(0deg); }
+        .wheel .spoke:nth-child(2) { transform: translate(-50%, -100%) rotate(90deg); }
+        .wheel .spoke:nth-child(3) { transform: translate(-50%, -100%) rotate(180deg); }
+        .wheel .spoke:nth-child(4) { transform: translate(-50%, -100%) rotate(270deg); }
+        .wheel .spoke:nth-child(5) { transform: translate(-50%, -100%) rotate(45deg); }
+        .wheel .spoke:nth-child(6) { transform: translate(-50%, -100%) rotate(135deg); }
+        .wheel .spoke:nth-child(7) { transform: translate(-50%, -100%) rotate(225deg); }
+        .wheel .spoke:nth-child(8) { transform: translate(-50%, -100%) rotate(315deg); }
+
+        .restart-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+
+        .restart-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="restart-btn" onclick="restartAnimation()">Запустить снова</button>
+
+    <div class="sun"></div>
+
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+
+    <div class="road">
+        <div class="road-line"></div>
+    </div>
+
+    <div class="car-container">
+        <div class="car">
+            <div class="car-body"></div>
+            <div class="car-roof"></div>
+            <div class="windshield"></div>
+            <div class="side-window left"></div>
+            <div class="side-window right"></div>
+
+            <!-- Решётка BMW -->
+            <div class="bmw-grille">
+                <div class="grille-part"></div>
+                <div class="grille-part"></div>
+            </div>
+
+            <!-- Фары -->
+            <div class="headlight left"></div>
+            <div class="headlight right"></div>
+
+            <!-- Колёса -->
+            <div class="wheel front">
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+            </div>
+            <div class="wheel rear">
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+                <div class="spoke"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function restartAnimation() {
+
+            const carContainer = document.querySelector('.car-container');
+            const wheels = document.querySelectorAll('.wheel');
+
+
+            carContainer.style.animation = 'none';
+
+            wheels.forEach(wheel => {
+                wheel.style.animation = 'none';
+            });
+
+            void carContainer.offsetWidth;
+
+            carContainer.style.animation = 'drive 6s ease-in-out forwards';
+            wheels.forEach(wheel => {
+                wheel.style.animation = 'spin-6s 6s linear forwards';
+            });
+        }
+    </script>
+</body>
+
+</html>
